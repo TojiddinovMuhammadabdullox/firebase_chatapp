@@ -1,3 +1,4 @@
+import 'package:chat_app_with_mk/services/chat/push_notifications_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -31,8 +32,11 @@ class AuthService {
         password: password,
       );
 
+      String? token = await FirebasePushNotificationService.getToken();
+
       _firestore.collection("Users").doc(userCredential.user!.uid).set(
         {
+          'token': token,
           'uid': userCredential.user!.uid,
           'email': email,
         },

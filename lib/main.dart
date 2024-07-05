@@ -1,12 +1,15 @@
 import 'package:chat_app_with_mk/services/auth/auth_gate.dart';
 import 'package:chat_app_with_mk/firebase_options.dart';
+import 'package:chat_app_with_mk/services/chat/push_notifications_service.dart';
 import 'package:chat_app_with_mk/theme/light_mode.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebasePushNotificationService.init();
   runApp(const MyApp());
 }
 

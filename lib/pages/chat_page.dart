@@ -1,15 +1,18 @@
 import 'package:chat_app_with_mk/services/auth/auth_service.dart';
 import 'package:chat_app_with_mk/services/chat/chat_service.dart';
+import 'package:chat_app_with_mk/services/chat/push_notifications_service.dart';
 import 'package:chat_app_with_mk/widgets/chat_bubble.dart';
 import 'package:chat_app_with_mk/widgets/my_textfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatelessWidget {
+  final String token;
   final String reciverEmail;
   final String receiverID;
 
   ChatPage({
+    required this.token,
     required this.reciverEmail,
     required this.receiverID,
     super.key,
@@ -23,7 +26,8 @@ class ChatPage extends StatelessWidget {
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {
       await _chatService.sendMessage(receiverID, _messageController.text);
-
+      FirebasePushNotificationService.sendNotificationMessage(
+          token, reciverEmail, _messageController.text);
       _messageController.clear();
     }
   }

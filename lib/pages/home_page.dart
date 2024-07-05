@@ -95,6 +95,7 @@ class _HomePageState extends State<HomePage> {
             context,
             CupertinoPageRoute(
               builder: (ctx) => ChatPage(
+                token: userData['token'],
                 reciverEmail: userData["email"],
                 receiverID: userData["uid"],
               ),
